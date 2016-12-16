@@ -16,5 +16,22 @@ require('./bootstrap');
 Vue.component('example', require('./components/Example.vue'));
 
 const app = new Vue({
-    el: '#app'
+    el: '#app',
+    data: {
+        users: []
+    },
+    mounted: function() {
+        this.$nextTick(function () {
+            console.log("setting socket...");
+
+            Echo.private('test-channel').listen('UserSignedUp', (e) => {
+                console.log(e.update);
+            });
+            // socket.on('test-channel:App\\Events\\UserSignedUp', function(data) {
+            // socket.on('test-channel:UserSignedUp', function(data) {
+                // console.log(data);
+                // this.users.push(data.username);
+            // }.bind(this));
+        });
+    }
 });
