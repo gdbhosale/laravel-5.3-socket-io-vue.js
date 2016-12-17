@@ -12,6 +12,7 @@
 */
 
 use Illuminate\Support\Facades\Redis;
+use Illuminate\Support\Facades\Broadcast;
 
 Route::get('/', function () {
     // broadcast(new App\Events\UserSignedUp('GaneshBhosale'));

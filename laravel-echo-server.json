@@ -1,6 +1,6 @@
 {
 	"appKey": "f43lepgiglban6dqf0gafih9dhc3lfr5ngbls6l1ab9kk68lq762ikp81eug",
-	"authHost": "http://localhost:8000",
+	"authHost": "http://localhost",
 	"authEndpoint": "/broadcasting/auth",
 	"database": "redis",
 	"databaseConfig": {

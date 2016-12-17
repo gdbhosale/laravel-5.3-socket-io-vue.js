@@ -13,7 +13,9 @@ require('./bootstrap');
  * the application, or feel free to tweak this setup for your needs.
  */
 
-Vue.component('example', require('./components/Example.vue'));
+// Vue.component('example', require('./components/Example.vue'));
+
+var socket = io("http://127.0.0.1:3005");
 
 const app = new Vue({
     el: '#app',
@@ -24,14 +26,29 @@ const app = new Vue({
         this.$nextTick(function () {
             console.log("setting socket...");
 
-            Echo.private('test-channel').listen('UserSignedUp', (e) => {
-                console.log(e.update);
+            // Echo.private('test-channel').listen('App\\Events\\UserSignedUp', (e, data) => {
+            //     console.log("Echo.private - test-channel:App\\Events\\UserSignedUp", e.update, data);
+            // });
+            // Echo.private('test-channel').listen('App\Events\UserSignedUp', (e, data) => {
+            //     console.log("Echo.private - test-channel:App\Events\UserSignedUp", e.update, data);
+            // });
+            Echo.private('test-channel').listen('UserSignedUp', function (data) {
+                console.log("Echo.private - test-channel:UserSignedUp", data);
+                this.users.push(data.username);
             });
-            // socket.on('test-channel:App\\Events\\UserSignedUp', function(data) {
-            // socket.on('test-channel:UserSignedUp', function(data) {
-                // console.log(data);
-                // this.users.push(data.username);
-            // }.bind(this));
+            /*
+            socket.on('private-test-channel:App\Events\UserSignedUp', function(data) {
+                // socket.on('test-channel:UserSignedUp', function(data) {
+                console.log("socket.on - private-test-channel:App\Events\UserSignedUp", data);
+                this.users.push(data.username);
+            }.bind(this));
+
+            socket.on('private-test-channel:App\\Events\\UserSignedUp', function(data) {
+                // socket.on('test-channel:UserSignedUp', function(data) {
+                console.log("socket.on - private-test-channel:App\\Events\\UserSignedUp", data);
+                this.users.push(data.username);
+            }.bind(this));
+            */
         });
     }
 });

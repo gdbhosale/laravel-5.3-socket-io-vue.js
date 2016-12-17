@@ -4,13 +4,13 @@ var Redis = require('ioredis');
 
 var redis = new Redis();
 
-redis.subscribe('test-channel');
+redis.subscribe('private-test-channel');
 
 redis.on('message', function(channel, message) {
     console.log(channel, message);
-    message = JSON.parse(message);
+    event = JSON.parse(message);
 
-    io.emit(channel + ':' + message.event, message.data);
+    io.emit(event.event, channel, event.data);
 });
 
 server.listen(3005);
